@@ -42,7 +42,7 @@ function ListGateways(){
             setLoading(false);
             if(result.success){
                 setGateway(result.data);
-                setGateways(gateways.filter(e => e._id != gatewayId));
+                setGateways(gateways.filter(e => e._id !== gatewayId));
                 setVisible(true);
             }
         }

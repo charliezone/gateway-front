@@ -3,6 +3,7 @@ import ListGateways from './pages/Gateways/ListGateways';
 import ShowGateway from './pages/Gateways/ShowGateway';
 import AddGateway from './pages/Gateways/AddGateway';
 import ListPeripherals from './pages/Peripherals/ListPeripherals';
+import AddPeripheral from './pages/Peripherals/AddPeripheral';
 
 import {
   BrowserRouter as Router,
@@ -55,6 +56,9 @@ function App() {
               </Route>
               <Route path="/peripherals">
                 <ListPeripherals />
+              </Route>
+              <Route path="/add/peripheral">
+                <AddPeripheral />
               </Route>
               <Route path="/gateway/:id">
                 <ShowGateway />

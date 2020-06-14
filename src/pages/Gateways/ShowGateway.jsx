@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Peripherals from '../Peripherals/Peripherals';
 
 import {
     useParams
@@ -7,9 +8,8 @@ import {
 import {
     Row,
     Col,
-    Table,
     Spinner,
-    Button
+    Alert
   } from 'reactstrap';
 
   import { BASE_URL } from '../../config';
@@ -18,6 +18,7 @@ function ShowGateway(){
     const [loading, setLoading] = useState(false);
     const [gateway, setGateway] = useState({});
     const [peripherals, setPeripherals] = useState([]);
+    const [peripheral, setPeripheral] = useState({});
     const { id } = useParams();
 
     useEffect(() => {
@@ -44,12 +45,41 @@ function ShowGateway(){
         })
     }, [id])
 
+    function handleDelete(id){
+        async function deletePeripheral(){
+            setLoading(true);
+
+            const response = await fetch(`${BASE_URL}remove/peripheral/${id}`, {method: 'DELETE'});
+            const result = await response.json();
+
+            setLoading(false);
+            if(result.success){
+                setPeripheral(result.data);
+                setPeripherals(peripherals.filter(e => e._id !== id));
+                setVisible(true);
+            }
+        }
+
+        deletePeripheral();
+    }
+
+    const [visible, setVisible] = useState(false);
+
+    const onDismiss = () => setVisible(false);
+
     return (
         <div className="show-gateway">
             <div className={(loading) ? 'loading' : 'd-none'}>
                 <Spinner color="primary" />
             </div>
             <div className={(loading) ? 'd-none' : 'content'}>
+                <Row>
+                    <Col>
+                        <Alert className="mt-5" color="info" isOpen={visible} toggle={onDismiss}>
+                            Peripheral: {peripheral.vendor} was deleted susefully.
+                        </Alert>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <h1 className="mt-5">Gateway: {gateway.name}</h1> 
@@ -67,28 +97,7 @@ function ShowGateway(){
                 </Row>
                 <Row className={peripherals.length < 1 && 'd-none'}>
                     <Col>
-                        <Table>
-                            <thead>
-                                <tr>
-                                    <th>Vendor</th>
-                                    <th>Create at</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {peripherals.map(v => {
-                                    return (
-                                        <tr key={v._id}>
-                                            <td>{v.vendor}</td>
-                                            <td>{v.create_at}</td>
-                                            <td>{v.status}</td>
-                                            <td><Button delete-peripheral={v._id} color="danger">delete</Button></td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </Table>
+                        <Peripherals peripherals={peripherals} handleDelete={handleDelete} />
                     </Col>
                 </Row>
             </div>
