@@ -105,7 +105,7 @@ function AddPeripheral(){
                                 </Input>
                             </FormGroup>
                             <div className="submit d-flex">
-                                <Button>Add Gateway</Button>
+                                <Button>Add Peripheral</Button>
                                 <div className={(loading) ? 'ml-3' : 'd-none'}>
                                     <Spinner color="primary" />
                                 </div>
