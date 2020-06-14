@@ -1,9 +1,17 @@
 import React from 'react';
+import { 
+    Row,
+    Col
+  } from 'reactstrap';
 
 function ListPeripherals(){
     return (
         <div className="list-peripherals">
-            <h1>List Peripherals</h1>
+            <Row>
+                <Col>
+                    <h2 className="mt-5">List Peripherals</h2>
+                </Col>
+            </Row>
         </div>   
     )
 }
