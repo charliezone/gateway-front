@@ -72,7 +72,7 @@ function ListGateways(){
                         <h2 className="my-5">List Gateways</h2>
                     </Col>
                 </Row>
-                <Row>
+                <Row className={gateways.length < 1 && 'd-none'}>
                     <Col>
                     <Table>
                         <thead>
@@ -94,6 +94,11 @@ function ListGateways(){
                             })}
                         </tbody>
                     </Table>
+                    </Col>
+                </Row>
+                <Row className={gateways.length > 0 && 'd-none'}>
+                    <Col>
+                        <h6 className="text-center">Not found Gateways</h6>
                     </Col>
                 </Row>
                 <Row>

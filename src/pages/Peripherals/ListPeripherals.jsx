@@ -64,14 +64,19 @@ function ListPeripherals(){
                         </Alert>
                     </Col>
                 </Row>
-                <Row>
+                <Row className="mb-5">
                     <Col>
                         <h2 className="mt-5">List Peripherals</h2>
                     </Col>
                 </Row>
-                <Row className="mt-5">
+                <Row className={peripherals.length < 1 && 'd-none'}>
                     <Col>
                         <Peripherals peripherals={peripherals} handleDelete={handleDelete} />
+                    </Col>
+                </Row>
+                <Row className={peripherals.length > 0 && 'd-none'}>
+                    <Col>
+                        <h6 className="text-center">Not found Peripherals</h6>
                     </Col>
                 </Row>
                 <Row>
